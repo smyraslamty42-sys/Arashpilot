@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arash Pilot</title>
+<link rel="icon" type="image/png" href="https://holobot.ir/s/uploads/Arasgood/ChatGPT%20Image%20%DB%B1%DB%B7%20%D9%85%D9%87%D8%B1%20%DB%B1%DB%B4%DB%B0%DB%B5%D8%8C%20%DB%B1%DB%B7_%DB%B4%DB%B6_%DB%B1%DB%B0.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050310; --bg2: #0a0620; --card: rgba(26, 22, 51, 0.78); --card2: #211a45;
+    --border: rgba(139, 92, 246, 0.25); --border-light: rgba(168, 85, 247, 0.55);
+    --text: #ffffff; --text2: #c4b8e8; --text3: #9b8ec5;
+    --purple: #8b5cf6; --purple2: #a855f7; --purple3: #7c3aed;
+    --pink: #ec4899; --blue: #3b82f6; --cyan: #06b6d4;
+    --green: #10b981; --red: #ef4444; --orange: #f97316; --yellow: #f59e0b;
+    --radius: 18px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Vazirmatn', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* BACKGROUND */
+  .bg-image {
+    position: fixed; inset: 0;
+    background-image: url('https://holobot.ir/s/uploads/Arasgood/%D8%A8%D9%86%D8%B1%20%D9%81%D9%86%D8%A7%D9%88%D8%B1%DB%8C%20%D8%A2%DB%8C%D9%86%D8%AF%D9%87_%D9%86%DA%AF%D8%B1%20%D8%A2%D8%B1%D8%B4%20%D9%BE%D8%A7%DB%8C%D9%84%D9%88%D8%AA.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index: -3;
+    pointer-events: none;
+  }
+  .bg-overlay {
+    position: fixed; inset: 0;
+    background: linear-gradient(135deg,
+      rgba(5, 3, 16, 0.82) 0%,
+      rgba(10, 6, 32, 0.68) 35%,
+      rgba(20, 8, 40, 0.72) 65%,
+      rgba(5, 3, 16, 0.85) 100%);
+    z-index: -2;
+    pointer-events: none;
+  }
+  .bg-glow {
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(circle at 15% 25%, rgba(139, 92, 246, 0.15) 0%, transparent 45%),
+      radial-gradient(circle at 85% 75%, rgba(236, 72, 153, 0.12) 0%, transparent 45%);
+    z-index: -1;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  /* HEADER */
+  header {
+    background: rgba(5, 3, 16, 0.78);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 20px;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  }
+  .header-inner {
+    max-width: 1300px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none; color: var(--text); min-width: 0;
+  }
+  .logo-img-wrap {
+    width: 52px; height: 52px;
+    border-radius: 50%; background: #fff; padding: 2px;
+    flex-shrink: 0; overflow: hidden;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 24px rgba(139, 92, 246, 0.7), 0 0 0 2px rgba(139, 92, 246, 0.5);
+    animation: logoPulse 3s ease-in-out infinite;
+  }
+  @keyframes logoPulse {
+    0%, 100% { box-shadow: 0 0 24px rgba(139, 92, 246, 0.7), 0 0 0 2px rgba(139, 92, 246, 0.5); }
+    50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.95), 0 0 0 3px rgba(168, 85, 247, 0.7); }
+  }
+  .logo-img-wrap img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; display: block; }
+  .logo-fallback {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    display: none; align-items: center; justify-content: center;
+    color: #fff; font-size: 22px; font-weight: 900; border-radius: 50%;
+  }
+  .logo-text { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+  .logo-text .name {
+    font-size: 19px; font-weight: 900;
+    background: linear-gradient(135deg, #fff, #c4b5fd, #a855f7);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .logo-text .tagline { font-size: 9.5px; color: var(--text3); font-weight: 600; letter-spacing: 2.5px; }
+  .header-actions { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
+
+  /* BUTTONS */
+  .btn {
+    padding: 10px 18px; border-radius: 12px;
+    font-family: inherit; font-size: 13px; font-weight: 700;
+    cursor: pointer; border: none;
+    transition: all .3s cubic-bezier(.4,0,.2,1);
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 6px; white-space: nowrap; text-decoration: none;
+    position: relative; overflow: hidden;
+  }
+  .btn-outline {
+    background: rgba(26, 22, 51, 0.75);
+    backdrop-filter: blur(12px);
+    color: var(--text);
+    border: 1.5px solid var(--border-light);
+  }
+  .btn-outline:hover { border-color: var(--purple); color: var(--purple2); box-shadow: 0 0 24px rgba(139, 92, 246, 0.4); }
+  .btn-purple {
+    background: linear-gradient(135deg, var(--purple), var(--purple2));
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.5);
+  }
+  .btn-purple:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(139, 92, 246, 0.7); }
+  .btn-block { width: 100%; justify-content: center; padding: 14px; font-size: 14.5px; }
+
+  /* NAV */
+  .nav-wrap {
+    max-width: 1300px; margin: 0 auto;
+    padding: 18px 20px 0;
+    display: flex; gap: 8px;
+    overflow-x: auto; scrollbar-width: none;
+    position: relative; z-index: 5;
+  }
+  .nav-wrap::-webkit-scrollbar { display: none; }
+  .nav-pill {
+    padding: 11px 18px; border-radius: 14px; cursor: pointer;
+    font-size: 13.5px; font-weight: 700; color: var(--text2);
+    background: rgba(26, 22, 51, 0.75);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    font-family: inherit;
+    display: flex; align-items: center; gap: 8px;
+    transition: all .3s; white-space: nowrap;
+  }
+  .nav-pill:hover { border-color: var(--border-light); color: var(--text); transform: translateY(-2px); }
+  .nav-pill.active {
+    background: linear-gradient(135deg, var(--purple), var(--purple2));
+    color: #fff; border-color: transparent;
+    box-shadow: 0 8px 28px rgba(139, 92, 246, 0.6);
+    transform: translateY(-2px);
+  }
+  .nav-pill .count {
+    background: rgba(255,255,255,.18);
+    padding: 1px 8px; border-radius: 8px;
+    font-size: 11px; font-weight: 800;
+  }
+
+  /* MAIN */
+  main { max-width: 1300px; margin: 0 auto; padding: 24px 20px; position: relative; z-index: 5; }
+  .section { display: none; animation: fadeIn .4s; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+  .section-title {
+    font-size: 22px; font-weight: 900;
+    display: flex; align-items: center; gap: 12px;
+    background: linear-gradient(135deg, #fff 0%, #c4b5fd 60%, #a855f7 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+  }
+  .section-title::before {
+    content: '';
+    width: 5px; height: 28px;
+    background: linear-gradient(180deg, var(--purple), var(--purple2));
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.9);
+    -webkit-text-fill-color: initial;
+  }
+
+  /* CARDS */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: rgba(26, 22, 51, 0.78);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    transition: all .4s;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  .card:hover {
+    border-color: var(--border-light);
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px rgba(139, 92, 246, 0.35);
+  }
+  .card-top { display: flex; gap: 16px; margin-bottom: 16px; }
+  .card-image {
+    width: 100px; height: 100px;
+    flex-shrink: 0; border-radius: 16px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--purple3), var(--purple2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 42px;
+    border: 2px solid rgba(139, 92, 246, 0.4);
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+    position: relative;
+  }
+  .card-image img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+  .card-info { flex: 1; min-width: 0; }
+  .card-title {
+    font-size: 16px; font-weight: 800;
+    margin-bottom: 8px;
+    color: #ffffff;
+    line-height: 1.5;
+  }
+  .card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .card-tag {
+    font-size: 10.5px; padding: 4px 10px; border-radius: 20px; font-weight: 700;
+    background: rgba(139, 92, 246, 0.25);
+    color: #d8b4fe;
+    border: 1px solid rgba(139, 92, 246, 0.5);
+  }
+  .card-tag.file {
+    background: rgba(245, 158, 11, 0.25);
+    color: #fcd34d;
+    border-color: rgba(245, 158, 11, 0.5);
+  }
+  .card-price {
+    font-size: 14px;
+    color: #c4b8e8;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .card-price b {
+    background: linear-gradient(135deg, #c084fc, #f472b6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900; font-size: 17px;
+  }
+  .card-price.free b {
+    background: linear-gradient(135deg, #34d399, #10b981);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: #a89ecf;
+    line-height: 1.75;
+    margin-bottom: 8px;
+  }
+  .card-actions { display: flex; margin-top: 16px; gap: 8px; }
+  .pbtn {
+    padding: 12px 18px; border-radius: 12px;
+    font-family: inherit; font-size: 13.5px; font-weight: 800;
+    cursor: pointer; border: none;
+    color: #fff;
+    transition: all .3s;
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; text-decoration: none; flex: 1;
+  }
+  .pbtn:disabled { opacity: 0.6; cursor: wait; }
+  .pbtn-pink { background: linear-gradient(135deg, #ec4899, #db2777); box-shadow: 0 4px 18px rgba(236, 72, 153, 0.5); }
+  .pbtn-pink:hover:not(:disabled) { transform: translateY(-2px); }
+  .pbtn-purple { background: linear-gradient(135deg, #8b5cf6, #a855f7); box-shadow: 0 4px 18px rgba(139, 92, 246, 0.55); }
+  .pbtn-purple:hover:not(:disabled) { transform: translateY(-2px); }
+  .pbtn-cyan { background: linear-gradient(135deg, #06b6d4, #0891b2); box-shadow: 0 4px 18px rgba(6, 182, 212, 0.5); }
+  .pbtn-cyan:hover:not(:disabled) { transform: translateY(-2px); }
+  .pbtn-orange { background: linear-gradient(135deg, #f97316, #ea580c); box-shadow: 0 4px 18px rgba(249, 115, 22, 0.5); }
+  .pbtn-orange:hover:not(:disabled) { transform: translateY(-2px); }
+  .pbtn-green { background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 4px 18px rgba(16, 185, 129, 0.5); }
+  .pbtn-green:hover:not(:disabled) { transform: translateY(-2px); }
+
+  .empty-state {
+    text-align: center; padding: 80px 20px;
+    color: #a89ecf;
+    background: rgba(26, 22, 51, 0.78);
+    backdrop-filter: blur(20px);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+  }
+  .empty-state-icon { font-size: 56px; margin-bottom: 16px; opacity: 0.5; }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(5, 3, 16, 0.88);
+    backdrop-filter: blur(14px);
+    z-index: 1000;
+    display: none;
+    align-items: center; justify-content: center;
+    padding: 16px; overflow-y: auto;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: linear-gradient(145deg, rgba(26, 22, 51, 0.98), rgba(10, 6, 32, 0.98));
+    backdrop-filter: blur(30px);
+    border: 1px solid var(--border-light);
+    border-radius: 24px;
+    width: 100%; max-width: 480px;
+    padding: 32px 26px;
+    animation: modalSlide .35s cubic-bezier(.4,0,.2,1);
+    position: relative;
+    max-height: 92vh;
+    overflow-y: auto;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+  }
+  @keyframes modalSlide {
+    from { opacity: 0; transform: translateY(30px) scale(.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .modal-close {
+    position: absolute; top: 18px; left: 18px;
+    background: rgba(255,255,255,.06);
+    border: none; color: var(--text2);
+    font-size: 20px; cursor: pointer;
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .2s; font-family: inherit;
+  }
+  .modal-close:hover { background: rgba(239,68,68,.25); color: var(--red); transform: rotate(90deg); }
+  .modal-icon {
+    width: 72px; height: 72px;
+    margin: 0 auto 18px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, var(--purple), var(--purple2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 34px;
+    box-shadow: 0 12px 36px rgba(139, 92, 246, 0.6);
+    animation: iconFloat 3s ease-in-out infinite;
+  }
+  @keyframes iconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .modal h2 { text-align: center; font-size: 21px; font-weight: 900; margin-bottom: 8px; color: var(--text); }
+  .modal-sub { text-align: center; font-size: 13px; color: var(--text3); margin-bottom: 24px; }
+
+  .form-group { margin-bottom: 14px; }
+  .form-label { display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 8px; color: var(--text2); }
+  .form-input {
+    width: 100%; padding: 14px 16px;
+    background: rgba(5, 3, 16, 0.6);
+    border: 1.5px solid var(--border);
+    border-radius: 14px; color: var(--text);
+    font-family: inherit; font-size: 14px;
+    outline: none; transition: all .25s; font-weight: 600;
+  }
+  .form-input:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+  }
+  .form-input.center { text-align: center; }
+  .form-input.pass { letter-spacing: 12px; font-size: 22px; text-align: center; }
+  .form-hint { font-size: 11px; color: var(--text3); margin-top: 6px; line-height: 1.6; }
+
+  .form-msg {
+    text-align: center; font-size: 12.5px;
+    margin-top: 14px; padding: 12px;
+    border-radius: 12px; display: none;
+    font-weight: 600; line-height: 1.7;
+  }
+  .form-msg.show { display: block; }
+  .form-msg.error { background: rgba(239, 68, 68, 0.18); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4); }
+  .form-msg.success { background: rgba(16, 185, 129, 0.18); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+
+  .modal-switch { text-align: center; margin-top: 20px; font-size: 13px; color: var(--text3); }
+  .modal-switch a { color: var(--purple2); font-weight: 800; cursor: pointer; text-decoration: none; margin-right: 4px; }
+  .modal-switch a:hover { text-decoration: underline; }
+
+  /* ربات بنر */
+  .bot-banner {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.1));
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all .3s;
+  }
+  .bot-banner:hover {
+    border-color: var(--border-light);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(236, 72, 153, 0.15));
+    transform: translateY(-2px);
+  }
+  .bot-banner-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--purple), var(--purple2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(139, 92, 246, 0.5);
+  }
+  .bot-banner-text { flex: 1; min-width: 0; }
+  .bot-banner-title { font-size: 13.5px; font-weight: 800; margin-bottom: 3px; }
+  .bot-banner-sub { font-size: 11.5px; color: var(--text3); }
+
+  .user-chip {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 14px 7px 7px;
+    background: rgba(26, 22, 51, 0.78);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    font-size: 12.5px; font-weight: 700;
+  }
+  .user-avatar {
+    width: 32px; height: 32px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--purple), var(--purple2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.5);
+  }
+  .user-chip .logout-btn {
+    background: transparent; border: none;
+    color: var(--text3); cursor: pointer;
+    font-family: inherit; font-size: 11px;
+    padding: 3px 8px; border-radius: 8px;
+  }
+  .user-chip .logout-btn:hover { color: var(--red); background: rgba(239, 68, 68, 0.15); }
+
+  .toast {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(120px);
+    background: rgba(33, 26, 69, 0.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 14px 24px;
+    font-size: 13.5px; font-weight: 700;
+    z-index: 2000; opacity: 0;
+    transition: all .35s;
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+    max-width: 90vw;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.success { border-color: rgba(16, 185, 129, 0.6); }
+  .toast.error { border-color: rgba(239, 68, 68, 0.6); }
+  .toast.info { border-color: rgba(59, 130, 246, 0.6); }
+
+  @media (max-width: 640px) {
+    main { padding: 20px 14px; }
+    .cards-grid { grid-template-columns: 1fr; gap: 14px; }
+    .card { padding: 16px; }
+    .card-image { width: 84px; height: 84px; font-size: 34px; }
+    .pbtn { font-size: 12.5px; padding: 11px 14px; }
+    .nav-wrap { padding: 12px 14px 0; gap: 6px; }
+    .nav-pill { padding: 9px 14px; font-size: 12.5px; }
+    .modal { padding: 26px 20px; }
+    .logo-text .name { font-size: 15px; }
+    .logo-text .tagline { font-size: 8.5px; }
+    .logo-img-wrap { width: 44px; height: 44px; }
+  }
+  @media (max-width: 380px) {
+    .logo-text .tagline { display: none; }
+  }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--purple), var(--purple3)); border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="bg-image" aria-hidden="true"></div>
+<div class="bg-overlay" aria-hidden="true"></div>
+<div class="bg-glow" aria-hidden="true"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo" onclick="event.preventDefault();switchSection('products');">
+      <div class="logo-img-wrap">
+        <img id="headerLogo" src="https://holobot.ir/s/uploads/Arasgood/ChatGPT%20Image%20%DB%B1%DB%B7%20%D9%85%D9%87%D8%B1%20%DB%B1%DB%B4%DB%B0%DB%B5%D8%8C%20%DB%B1%DB%B7_%DB%B4%DB%B6_%DB%B1%DB%B0.png" alt="Arash Pilot"
+             onload="this.parentElement.querySelector('.logo-fallback').style.display='none';"
+             onerror="this.style.display='none';this.parentElement.querySelector('.logo-fallback').style.display='flex';">
+        <div class="logo-fallback">AP</div>
+      </div>
+      <div class="logo-text">
+        <span class="name" id="siteName">Arash Pilot</span>
+        <span class="tagline" id="siteTagline">CODE • BUILD • CREATE</span>
+      </div>
+    </a>
+    <div class="header-actions" id="headerActions"></div>
+  </div>
+</header>
+
+<div class="nav-wrap" id="navWrap"></div>
+
+<main id="mainContent">
+  <div class="empty-state"><div class="empty-state-icon">⏳</div><p>در حال بارگذاری...</p></div>
+</main>
+
+<!-- REGISTER MODAL -->
+<div class="modal-overlay" id="registerModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('registerModal')">&times;</button>
+    <div class="modal-icon">📝</div>
+    <h2>ثبت‌نام</h2>
+    <p class="modal-sub">حساب کاربری جدید بساز</p>
+
+    <!-- لینک ربات -->
+    <a href="https://rubika.ir/Pilot_bot" target="_blank" rel="noopener" class="bot-banner">
+      <div class="bot-banner-icon">🤖</div>
+      <div class="bot-banner-text">
+        <div class="bot-banner-title">عضویت در ربات روبیکا</div>
+        <div class="bot-banner-sub">برای دسترسی به امکانات ویژه عضو شوید</div>
+      </div>
+      <span style="font-size:20px;color:var(--purple2);">←</span>
+    </a>
+
+    <div class="form-group">
+      <label class="form-label">نام کاربری</label>
+      <input type="text" class="form-input center" id="reg_username" placeholder="arash_dev" maxlength="20">
+      <div class="form-hint">حروف انگلیسی، عدد و _ (۳ تا ۲۰ کاراکتر)</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">شماره موبایل</label>
+      <input type="tel" class="form-input center" id="reg_phone" placeholder="09xxxxxxxxx" maxlength="11" inputmode="numeric">
+    </div>
+    <div class="form-group">
+      <label class="form-label">رمز عبور (۴ رقمی)</label>
+      <input type="tel" class="form-input pass" id="reg_pass" placeholder="****" maxlength="4" inputmode="numeric">
+    </div>
+
+    <button class="btn btn-purple btn-block" onclick="doRegister()">🎉 ثبت‌نام</button>
+    <div class="form-msg" id="reg_msg"></div>
+
+    <div class="modal-switch">حساب داری؟ <a onclick="switchToLogin()">وارد شو</a></div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+    <div class="modal-icon">🔐</div>
+    <h2>ورود</h2>
+    <p class="modal-sub">به حساب کاربری خود وارد شو</p>
+    <div class="form-group">
+      <label class="form-label">نام کاربری یا شماره موبایل</label>
+      <input type="text" class="form-input center" id="login_user" placeholder="نام کاربری یا شماره">
+    </div>
+    <div class="form-group">
+      <label class="form-label">رمز عبور (۴ رقمی)</label>
+      <input type="tel" class="form-input pass" id="login_pass" placeholder="****" maxlength="4" inputmode="numeric">
+    </div>
+    <button class="btn btn-purple btn-block" onclick="doLogin()">ورود</button>
+    <div class="form-msg" id="login_msg"></div>
+    <div class="modal-switch">حساب نداری؟ <a onclick="switchToRegister()">ثبت‌نام کن</a></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   تنظیمات
+   ============================================================ */
+const BOT_LINK = 'https://rubika.ir/Pilot_bot';
+
+/* ============================================================
+   IndexedDB — خواندن فایل‌های آپلودشده
+   ============================================================ */
+let filesDB = null;
+const FILES_DB_NAME = 'arashpilot_files';
+const FILES_STORE = 'files';
+
+function openFilesDB() {
+  return new Promise((resolve, reject) => {
+    if (filesDB) return resolve(filesDB);
+    const req = indexedDB.open(FILES_DB_NAME, 1);
+    req.onupgradeneeded = (e) => {
+      const d = e.target.result;
+      if (!d.objectStoreNames.contains(FILES_STORE)) {
+        d.createObjectStore(FILES_STORE, { keyPath: 'id' });
+      }
+    };
+    req.onsuccess = (e) => { filesDB = e.target.result; resolve(filesDB); };
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function getFileFromDB(id) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const d = await openFilesDB();
+      const tx = d.transaction(FILES_STORE, 'readonly');
+      const req = tx.objectStore(FILES_STORE).get(id);
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    } catch(e) { reject(e); }
+  });
+}
+
+async function downloadProjectFile(fileId, fileName, fallbackLink, btn) {
+  const originalText = btn ? btn.innerHTML : '';
+  if (btn) { btn.disabled = true; btn.innerHTML = '⏳ دریافت...'; }
+
+  try {
+    const file = await getFileFromDB(fileId);
+
+    if (!file || !file.blob) {
+      if (fallbackLink && fallbackLink !== '#') {
+        window.open(fallbackLink, '_blank');
+        showToast('⚠️ فایل داخلی نبود — از لینک باز شد', 'info');
+      } else {
+        showToast('❌ فایل پیدا نشد', 'error');
+      }
+      if (btn) { btn.disabled = false; btn.innerHTML = originalText; }
+      return;
+    }
+
+    const url = URL.createObjectURL(file.blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName || file.name || 'download';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+
+    showToast('✅ دانلود شروع شد', 'success');
+
+  } catch(e) {
+    console.error(e);
+    if (fallbackLink && fallbackLink !== '#') {
+      window.open(fallbackLink, '_blank');
+      showToast('⚠️ از لینک باز شد', 'info');
+    } else {
+      showToast('❌ خطا در دانلود', 'error');
+    }
+  } finally {
+    if (btn) { btn.disabled = false; btn.innerHTML = originalText; }
+  }
+}
+
+function formatBytes(bytes) {
+  bytes = parseInt(bytes) || 0;
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+}
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let appData = {
+  settings: { siteName: 'Arash Pilot', tagline: 'CODE • BUILD • CREATE' },
+  products: [], channels: [], groups: [], sites: [], projects: [], apps: [], news: []
+};
+let currentSection = 'products';
+let currentUser = null;
+
+const SECTIONS = [
+  { key: 'products', label: '🛒 فروشگاه',  title: 'فروشگاه',        btnText: '🛒 خرید',   btnClass: 'pbtn-pink' },
+  { key: 'channels', label: '📺 کانال‌ها', title: 'کانال‌های ما',   btnText: '🔔 پیوستن', btnClass: 'pbtn-purple' },
+  { key: 'groups',   label: '👥 گروه‌ها',  title: 'گروه‌های ما',    btnText: '🔔 پیوستن', btnClass: 'pbtn-purple' },
+  { key: 'sites',    label: '🌐 سایت‌ها',  title: 'سایت‌های ما',    btnText: '🌐 بازدید', btnClass: 'pbtn-cyan' },
+  { key: 'projects', label: '📁 پروژه‌ها', title: 'پروژه‌ها',        btnText: '📥 دانلود', btnClass: 'pbtn-orange' },
+  { key: 'apps',     label: '💻 برنامه‌ها', title: 'برنامه‌ها',        btnText: '📥 دانلود', btnClass: 'pbtn-green' }
+];
+
+/* ============================================================
+   LOAD DATA
+   ============================================================ */
+async function loadData() {
+  try {
+    const saved = localStorage.getItem('arashpilot_data');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.settings && parsed.settings.siteName) {
+        appData = {
+          settings: parsed.settings || {},
+          products: Array.isArray(parsed.products) ? parsed.products : [],
+          channels: Array.isArray(parsed.channels) ? parsed.channels : [],
+          groups:   Array.isArray(parsed.groups)   ? parsed.groups   : [],
+          sites:    Array.isArray(parsed.sites)    ? parsed.sites    : [],
+          projects: Array.isArray(parsed.projects) ? parsed.projects : [],
+          apps:     Array.isArray(parsed.apps)     ? parsed.apps     : [],
+          news:     Array.isArray(parsed.news)     ? parsed.news     : []
+        };
+        return;
+      }
+    }
+  } catch(e) {}
+
+  try {
+    const res = await fetch('https://api.npoint.io/fa34664602c3c9a83864', { cache: 'no-store' });
+    const data = await res.json();
+    appData = {
+      settings: data.settings || {},
+      products: Array.isArray(data.products) ? data.products : [],
+      channels: Array.isArray(data.channels) ? data.channels : [],
+      groups:   Array.isArray(data.groups)   ? data.groups   : [],
+      sites:    Array.isArray(data.sites)    ? data.sites    : [],
+      projects: Array.isArray(data.projects) ? data.projects : [],
+      apps:     Array.isArray(data.apps)     ? data.apps     : [],
+      news:     Array.isArray(data.news)     ? data.news     : []
+    };
+  } catch(e) {}
+}
+
+/* ============================================================
+   USER
+   ============================================================ */
+function getUsers() {
+  try { return JSON.parse(localStorage.getItem('arashpilot_users') || '[]'); }
+  catch(e) { return []; }
+}
+function saveUsers(users) { localStorage.setItem('arashpilot_users', JSON.stringify(users)); }
+
+function loadSession() {
+  try {
+    const s = localStorage.getItem('arashpilot_session');
+    if (s) currentUser = JSON.parse(s);
+  } catch(e) {}
+}
+
+/* ============================================================
+   REGISTER — بدون کد تایید
+   ============================================================ */
+function doRegister() {
+  const username = document.getElementById('reg_username').value.trim().toLowerCase();
+  const phone = document.getElementById('reg_phone').value.trim();
+  const pass = document.getElementById('reg_pass').value.trim();
+  const msg = document.getElementById('reg_msg');
+  msg.className = 'form-msg';
+
+  // اعتبارسنجی نام کاربری
+  if (!/^[a-z0-9_]{3,20}$/.test(username)) {
+    msg.className = 'form-msg error show';
+    msg.textContent = '❌ نام کاربری: ۳ تا ۲۰ کاراکتر انگلیسی، عدد یا _';
+    return;
+  }
+
+  // اعتبارسنجی شماره
+  if (!/^09\d{9}$/.test(phone)) {
+    msg.className = 'form-msg error show';
+    msg.textContent = '❌ شماره موبایل معتبر نیست';
+    return;
+  }
+
+  // اعتبارسنجی رمز
+  if (!/^\d{4}$/.test(pass)) {
+    msg.className = 'form-msg error show';
+    msg.textContent = '❌ رمز عبور باید ۴ رقم باشد';
+    return;
+  }
+
+  // چک تکراری
+  const users = getUsers();
+  if (users.find(u => u.username === username)) {
+    msg.className = 'form-msg error show';
+    msg.textContent = '❌ این نام کاربری گرفته شده';
+    return;
+  }
+  if (users.find(u => u.phone === phone)) {
+    msg.className = 'form-msg error show';
+    msg.textContent = '❌ این شماره قبلاً ثبت شده';
+    return;
+  }
+
+  // ذخیره
+  users.push({
+    username: username,
+    phone: phone,
+    pass: pass,
+    createdAt: Date.now(),
+    status: 'active'
+  });
+  saveUsers(users);
+
+  msg.className = 'form-msg success show';
+  msg.textContent = '🎉 ثبت‌نام موفق!';
+
+  setTimeout(() => {
+    closeModal('registerModal');
+    currentUser = { username: username, phone: phone };
+    localStorage.setItem('arashpilot_session', JSON.stringify(currentUser));
+    renderHeaderActions();
+    renderMain();
+    showToast('🎉 خوش آمدی ' + username, 'success');
+    resetRegisterForm();
+  }, 1000);
+}
+
+function resetRegisterForm() {
+  document.getElementById('reg_username').value = '';
+  document.getElementById('reg_phone').value = '';
+  document.getElementById('reg_pass').value = '';
+  document.getElementById('reg_msg').className = 'form-msg';
+}
+
+function doLogin() {
+  const userInput = document.getElementById('login_user').value.trim().toLowerCase();
+  const pass = document.getElementById('login_pass').value.trim();
+  const msg = document.getElementById('login_msg');
+  msg.className = 'form-msg';
+
+  if (!userInput) { msg.className='form-msg error show'; msg.textContent='❌ نام کاربری یا شماره رو وارد کن'; return; }
+  if (!/^\d{4}$/.test(pass)) { msg.className='form-msg error show'; msg.textContent='❌ رمز باید ۴ رقم باشد'; return; }
+
+  const users = getUsers();
+  const user = users.find(u => (u.username === userInput || u.phone === userInput) && u.pass === pass);
+  if (!user) { msg.className='form-msg error show'; msg.textContent='❌ اطلاعات ورود اشتباه'; return; }
+
+  currentUser = { username: user.username, phone: user.phone };
+  localStorage.setItem('arashpilot_session', JSON.stringify(currentUser));
+  msg.className = 'form-msg success show';
+  msg.textContent = '✅ خوش آمدید!';
+
+  setTimeout(() => {
+    closeModal('loginModal');
+    renderHeaderActions();
+    renderMain();
+    showToast('🎉 خوش آمدی ' + user.username, 'success');
+    document.getElementById('login_user').value = '';
+    document.getElementById('login_pass').value = '';
+    msg.className = 'form-msg';
+  }, 800);
+}
+
+function doLogout() {
+  if (!confirm('خارج می‌شوید؟')) return;
+  currentUser = null;
+  localStorage.removeItem('arashpilot_session');
+  renderHeaderActions();
+  renderMain();
+  showToast('👋 خارج شدید', 'success');
+}
+
+function switchToLogin() { closeModal('registerModal'); openModal('loginModal'); }
+function switchToRegister() { closeModal('loginModal'); openModal('registerModal'); }
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+  setTimeout(() => {
+    const first = document.querySelector('#' + id + ' input');
+    if (first) first.focus();
+  }, 100);
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+  if (id === 'registerModal') resetRegisterForm();
+}
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function renderAll() {
+  if (appData.settings.siteName) {
+    document.getElementById('siteName').textContent = appData.settings.siteName;
+    document.title = appData.settings.siteName;
+  }
+  if (appData.settings.tagline) {
+    const t = document.getElementById('siteTagline');
+    if (t) t.textContent = appData.settings.tagline;
+  }
+  renderHeaderActions();
+  renderNav();
+  renderMain();
+}
+
+function renderHeaderActions() {
+  const el = document.getElementById('headerActions');
+  if (currentUser) {
+    el.innerHTML = `
+      <div class="user-chip">
+        <div class="user-avatar">👤</div>
+        <span>${esc(currentUser.username)}</span>
+        <button class="logout-btn" onclick="doLogout()">خروج</button>
+      </div>`;
+  } else {
+    el.innerHTML = `
+      <button class="btn btn-outline" onclick="openModal('loginModal')">ورود</button>
+      <button class="btn btn-purple" onclick="openModal('registerModal')">ثبت‌نام</button>`;
+  }
+}
+
+function renderNav() {
+  document.getElementById('navWrap').innerHTML = SECTIONS.map(s => {
+    const count = (appData[s.key] || []).length;
+    return `<button class="nav-pill ${s.key === currentSection ? 'active' : ''}" onclick="switchSection('${s.key}')">
+      <span>${s.label}</span>
+      ${count > 0 ? `<span class="count">${count}</span>` : ''}
+    </button>`;
+  }).join('');
+}
+
+function switchSection(key) {
+  currentSection = key;
+  renderNav();
+  renderMain();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderMain() {
+  const main = document.getElementById('mainContent');
+  const sec = SECTIONS.find(s => s.key === currentSection);
+  if (!sec) return;
+
+  const items = appData[currentSection] || [];
+
+  if (items.length === 0) {
+    main.innerHTML = `
+      <div class="section active">
+        <div class="section-title">${sec.title}</div>
+        <div class="empty-state">
+          <div class="empty-state-icon">📭</div>
+          <p>هنوز محتوایی اضافه نشده است.</p>
+        </div>
+      </div>`;
+    return;
+  }
+
+  main.innerHTML = `
+    <div class="section active">
+      <div class="section-title">${sec.title}</div>
+      <div class="cards-grid">
+        ${items.map(item => renderCard(item, sec)).join('')}
+      </div>
+    </div>`;
+}
+
+function renderCard(item, sec) {
+  const hasImage = item.image && String(item.image).trim();
+  const icon = item.icon || '📦';
+  const isFree = !item.price || item.price === 'رایگان' || item.price === '0';
+  const link = item.link || '#';
+  const hasFile = item.fileId && String(item.fileId).trim();
+
+  return `
+    <div class="card">
+      <div class="card-top">
+        <div class="card-image">
+          ${hasImage ? `<img src="${esc(item.image)}" alt="${esc(item.title)}" loading="lazy" onerror="this.remove()">` : `<span>${esc(icon)}</span>`}
+        </div>
+        <div class="card-info">
+          <div class="card-title">${esc(item.title) || 'بدون عنوان'}</div>
+          ${item.price ? `<div class="card-price ${isFree ? 'free' : ''}">قیمت: <b>${esc(item.price)}</b>${!isFree ? ' تومان' : ''}</div>` : ''}
+          ${item.description ? `<div class="card-desc">${esc(item.description)}</div>` : ''}
+          ${item.badge ? `<div class="card-tags" style="margin-top:6px;"><span class="card-tag">${esc(item.badge)}</span></div>` : ''}
+          ${hasFile ? `<div class="card-tags" style="margin-top:6px;"><span class="card-tag file">📎 ${esc(item.fileName || 'فایل ضمیمه')}${item.fileSize ? ' • ' + formatBytes(item.fileSize) : ''}</span></div>` : ''}
+        </div>
+      </div>
+      <div class="card-actions">
+        ${hasFile
+          ? `<button class="pbtn ${sec.btnClass}" onclick="downloadProjectFile('${esc(item.fileId)}', '${esc(item.fileName || 'file').replace(/'/g, "\\'")}', '${esc(link)}', this)">📥 دانلود</button>`
+          : `<a class="pbtn ${sec.btnClass}" href="${esc(link)}" target="_blank" rel="noopener">${sec.btnText}</a>`
+        }
+      </div>
+    </div>`;
+}
+
+function esc(s) {
+  if (s === undefined || s === null) return '';
+  const d = document.createElement('div');
+  d.textContent = String(s);
+  return d.innerHTML;
+}
+
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type;
+  setTimeout(() => t.classList.add('show'), 10);
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// فقط عدد در فیلدهای numeric
+document.addEventListener('input', e => {
+  if (e.target.inputMode === 'numeric') {
+    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+  }
+});
+
+// بستن مودال
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('modal-overlay')) closeModal(e.target.id);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => closeModal(m.id));
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+(async function init() {
+  loadSession();
+  await openFilesDB();
+  await loadData();
+  renderAll();
+})();
+</script>
+</body>
+</html>
